@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: Loader-Example
+  main:
+    banner-mode: off
+    log-startup-info: false
+    web-application-type: none
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  messages:
+    basename: messages
+    encoding: UTF-8
+    fallback-to-system-locale: false
+
+mybatis:
+  config-location: classpath:/mybatis/mybatis-config.xml
+  mapper-locations: classpath*:/mybatis/mapper/**/*.xml
+
+gcp:
+  url: ${GCP_STORAGE_URL}
+  project-id: ${GCP_PROJECT_ID}
+  cloud-storage:
+    bucket-name: ${GCP_BUCKET_NAME}
+    download-path: ${GCP_DOWNLOAD_PATH}
+
+logging:
+  level:
+    root: ${LOG_LEVEL:INFO}
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss}　%-5level %logger{36} - %msg%n"
+
+# 多重起動設定
+job:
+  duplex-flag-path: "C:/test/job-execute.flg"
+  debug-mode: true
+
+# アプリ固有値
+BE-BATCH000:
+  job-name: "サンプル"
+  class-name: "com.example.loaderexample.job.SampleJob"
+BE-BATCH001:
+  job-name: "給食献立の情報更新"
+  class-name: "com.example.loaderexample.job.SchoolLunchDataLoader"

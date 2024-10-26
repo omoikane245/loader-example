@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.loaderexample.mapper.SchoolLunchMapper">
+  <insert id="loadData" parameterType="string">
+    LOAD DATA LOCAL INFILE #{filePath}
+      INTO TABLE TBL_SCHOOL_LUNCH
+    FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' IGNORE 1 LINES
+      (@1,@2,@3,@4,@5,@6,@7,@8,@9,@10,@11,@12)
+    SET
+      PUBLIC_ORGANIZATION_CD = @1,
+      ID = @2,
+      PREFECTURE_NAME = @3,
+      CITY_NAME = @4,
+      COURSE_NAME = @5,
+      SCHOOL_NAME = @6,
+      MENU_DATE = @7,
+      MENU_NO = @8,
+      DISH_NAME = @9,
+      ITEM_NO = @10,
+      FOOD_CATEGORY = @11,
+      FOOD_NAME = @12,
+      CREATED_BY = #{operatorId},
+      UPDATED_BY = #{operatorId};
+  </insert>
+
+  <delete id="deleteAll">
+    DELETE FROM TBL_SCHOOL_LUNCH;
+  </delete>
+</mapper>
